@@ -1,0 +1,85 @@
+﻿@using BusinessLayer.Concrete;
+@using DataAccessLayer.Models
+@model List<UserManager.UsersData>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    
+}
+
+@section Css{
+    <link href="~/Content/plugins/data-tables/css/jquery.dataTables.min.css" rel="stylesheet" />
+}
+
+@section Js{
+    <script src="~/Content/plugins/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/js/pages/users.js"></script>
+}
+
+
+<div id="main">
+    <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+        <div class="breadcrumbs-dark pb-0 pt-0" id="breadcrumbs-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 m6">
+                        <ol class="breadcrumbs mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Kullanıcılar</a>
+                            </li>
+                        </ol>
+                    </div>
+                    @*<div class="col s2 m6 l6">
+
+                            <ul class="dropdown-content" id="dropdown1" tabindex="0">
+                                <li tabindex="0"><a class="grey-text text-darken-2" href="user-profile-page.html">Profilim<span class="new badge red">2</span></a></li>
+                                <li class="divider" tabindex="-1"></li>
+                                <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
+                            </ul>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="container">
+                <!-- users list start -->
+                <section class="users-list-wrapper section">
+
+
+                    <div class="users-list-table">
+                        <div class="card">
+                            <div class="card-content">
+                                <table id="data-table-simple" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            @*<th>Resim</th>*@
+                                            <th>Kullanıcı Adı</th>
+                                            <th>İsim Soyisim</th>
+                                            <th>Departman</th>
+                                            <th>Email</th>
+                                            <th>Telefon</th>
+                                            <th>Durum</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="content-overlay"></div>
+        </div>
+    </div>
+</div>
+@*--------------------------------------------------------*@
+
+
+

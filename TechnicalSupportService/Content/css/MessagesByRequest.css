@@ -1,0 +1,9 @@
+﻿
+img {
+    max-width: 700px;
+    max-height: 600px;
+}
+
+*, :after, :before {
+    box-sizing: initial;
+}

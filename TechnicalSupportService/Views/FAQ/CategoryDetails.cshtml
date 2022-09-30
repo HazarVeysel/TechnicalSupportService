@@ -1,0 +1,130 @@
+﻿@model  TechnicalSupportService.Models.IndexModel
+@{
+    Layout = "~/Views/Shared/_FAQIndexLayout.cshtml";
+    var UID = Url.RequestContext.RouteData.Values["id"];
+
+}
+
+
+<main role="main">
+    <div class="p3 mglonx darken1">
+        <div class="max-width-4 mx-auto">
+            <nav class="flex items-center justify-between mb3">
+
+                <ol class="breadcrumbs">
+
+                    <li title="Home">
+
+                        <a href="/FAQ/index">Ana Sayfa</a>
+
+                    </li>
+
+                    <li title="All Categories">
+
+                        <a href="/FAQ/Categories">Kategoriler</a>
+
+                    </li>
+                    <li title="Category">
+
+                        <a href="/FAQ/CategoryDetails/@UID">@Model.Category.Category_Name</a>
+
+                    </li>
+
+
+                </ol>
+            </nav>
+            @*<header class="display-4">
+
+                <h2>
+                    @Model.Category.Category_Name
+
+                </h2>
+
+
+
+            </header>*@
+
+
+            <div class="flex flex-wrap mxn2">
+                @if (Model.CategoryList.Count !=  0 )
+                {
+
+
+                    foreach (var item in Model.CategoryList)
+                    {
+                        <section class="lg-col-6 md-col-6 sm-col-12 xs-col-12 p2 mb3">
+                            <div class="col-12">
+
+                                <h4 class="stronger mb2">
+                                    <a href="/FAQ/CategoryDetails/@item.Category_ID">@item.Category_Name</a>
+
+                                </h4>
+
+                                @foreach (var item2 in Model.QuestionList.Where(x => x.Category_ID == item.Category_ID))
+                                {
+                                    <div>
+
+                                        <div class="mb2 flex items-center">
+
+                                            <h3>
+                                                <a href="/FAQ/QuestionDetails/@item2.Question_ID" class="link-quiet text-blue ml-2">@item2.Question_Title</a>
+                                            </h3>
+                                        </div>
+                                        <div class="ml3 flex items-center">
+                                            <h6>@item2.Question_Details</h6>
+                                        </div>
+                                    </div>
+                                    <br />
+                                }
+
+
+
+                            </div>
+                        </section>
+                    }
+                }
+                else
+                {
+                    <section class="lg-col-6 md-col-6 sm-col-12 xs-col-12 p2 mb3">
+                        <div class="col-12">
+
+                            @foreach (var item2 in Model.QuestionList.Where(x => x.Category_ID == Model.Category.Category_ID))
+                            {
+                                <div>
+
+                                    <div class="mb2 flex items-center">
+
+                                        <h3>
+                                            <a href="/FAQ/QuestionDetails/@item2.Question_ID" class="link-quiet text-blue ml-2">@item2.Question_Title</a>
+                                        </h3>
+                                    </div>
+                                    <div class="ml3 flex items-center">
+                                        <h6>@item2.Question_Details</h6>
+                                    </div>
+                                </div>
+                                <br />
+                            }
+
+                            
+
+
+                        </div>
+                    </section>
+                }
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    body > footer {
+        background-color: #f9f9f9;
+        padding: 5% 5%;
+    }
+
+    a.link {
+        cursor: pointer;
+        color: #000;
+    }
+</style>
+

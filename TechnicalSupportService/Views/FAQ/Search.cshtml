@@ -1,0 +1,34 @@
+﻿@model List<DataAccessLayer.Models.Questions>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_FAQIndexLayout.cshtml";
+}
+
+
+
+
+<div class="p3 mglonx darken1">
+    <div class="max-width-4 mx-auto">
+        <nav class="lg-flex md-flex items-center justify-between mb3">
+        </nav>
+        <header class="page-header mb3">
+            <h2 class="display">Search results</h2>
+            <p class="page-header-description">@Model.Count results for "@ViewBag.word"</p>
+        </header>
+
+        <div class="search-results">
+            <section class="search-results-column py1">
+                @foreach (var item in Model)
+                {
+                <div class="mb3">
+                    <h3 class="huge">
+                        <a href="/FAQ/QuestionDetails/@item.Question_ID" class="display strong text-blue link-quiet">@item.Question_Title</a>
+                    </h3>
+                    <div class="big quieter">@item.Question_Details</div>
+
+                </div>
+                }
+            </section>
+        </div>
+    </div>
+</div>

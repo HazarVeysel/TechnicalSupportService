@@ -1,0 +1,44 @@
+﻿@model List<TechnicalSupportService.Models.QuestionCategory>
+@{
+    ViewBag.Title = "AdminPanel";
+    Layout = "~/Views/Shared/_FAQIndexLayout.cshtml";
+}
+<div class="p3 mglonx darken1">
+    <div class="max-width-4 mx-auto">
+        <div class="row">
+            <div class="col-sm-9 py2" style="min-width: 55%;">
+                <nav class="flex items-center justify-between mb3">
+                    <ol class="breadcrumbs">
+                        <li title="Home">
+                            <a href="/">Ana Sayfa</a>
+                        </li>
+                        <li title="All Questions">
+                            <a href="/FAQ/Questions">Tüm Sorular</a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            @*<div class="col-sm-3 py2" style="min-width: 15%;">
+                <header class="display huge right-0 float-right">
+                    <span class="display-4">
+                        Sorular
+                    </span>
+                </header>
+            </div>*@
+        </div>
+        @foreach (var item in Model)
+        {
+            <header class="display huge mb2">
+                <h3>
+                    @item.Question_Title
+                </h3>
+                <div>
+                    <div class="mb2">
+
+                        <a href="/FAQ/QuestionDetails/@item.Question_ID" class="link-quiet text-blue pointer">@item.Question_Details</a>
+                    </div>
+                </div>
+            </header>
+        }
+    </div>
+</div>

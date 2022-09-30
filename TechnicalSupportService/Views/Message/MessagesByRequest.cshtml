@@ -1,0 +1,572 @@
+﻿@using DataAccessLayer.Models
+@model List<TechnicalSupportService.Controllers.ReqMesClass>
+@{
+    ViewBag.Title = "MessagesByRequest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int userid = Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]);
+
+    bati_serverEntities b = new bati_serverEntities();
+
+
+
+    int[] arr = Model.GroupBy(x => x.User_Id).Select(x => x.Key.Value).ToArray();
+    int[] arr2 = Model.GroupBy(x => x.Responsible_Id).Select(x => x.Key ?? 0).ToArray();
+
+    var UserLst = arr.Union(arr2).ToArray();
+    List<Tbl_Users> UserInfos = b.Tbl_Users.Where(x => UserLst.Contains(x.id)).ToList();
+
+    TechnicalSupportService.Controllers.ReqMesClass TicketModel = Model.FirstOrDefault();
+}
+@section Css{
+    <link href="~/Content/css/appchat.css" rel="stylesheet" />
+    <link href="~/Content/css/MessagesByRequest.css" rel="stylesheet" />
+}
+@section Js{
+    <script src="//cdn.ckeditor.com/4.19.1/basic/ckeditor.js"></script>
+    @*<script src="~/Content/js/ckplugin.js"></script>*@
+}
+
+<div id="main">
+    <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+        <div class="breadcrumbs-dark pb-0 pt-0" id="breadcrumbs-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 m6">
+                        <ol class="breadcrumbs mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Talepler</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Talep Detayı
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col s2 m6 l6">
+
+                        <ul class="dropdown-content" id="dropdown1" tabindex="0">
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-profile-page.html">Profilim<span class="new badge red">2</span></a></li>
+                            <li class="divider" tabindex="-1"></li>
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="container">
+                <section class="users-list-wrapper section">
+                    <div class="users-list-table">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="responsive-table">
+                                    <table id="messagebyreq" class="table" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 1%">
+                                                    ID
+                                                </th>
+                                                <th style="width: 12%">
+                                                    Talep Eden
+                                                </th>
+                                                <th style="width: 4%">
+                                                    Departman
+                                                </th>
+                                                <th style="width: 8%">
+                                                    Öncelik
+                                                </th>
+                                                <th style="width: 6%">
+                                                    Kategori
+                                                </th>
+
+                                                <th style="width: 12%" class="text-center">
+                                                    Üstlenen
+                                                </th>
+                                                <th style="width: 12%">
+                                                    <span>Üstlenme Tarihi</span>
+                                                </th>
+                                                <th style="width: 12%">
+                                                    <span>Talep Tarihi</span>
+                                                </th>
+                                                <th style="width: 12%">
+                                                    <span>Kapanış Tarihi</span>
+                                                </th>
+                                                <th style="width: 6%" class="text-center">
+                                                    Durum
+                                                </th>
+                                                <th style="width: 6%" class="text-center">
+                                                    Aktiflik
+                                                </th>
+                                                <th width="9%">
+                                                    İşlem
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                @foreach (var item in Model.Take(1))
+                                                {
+
+                                                    <td>
+                                                        @item.Request_Id
+
+                                                    </td>
+                                                    <td>
+
+                                                        <ul class="list-inline">
+
+                                                            <li class="list-inline-item">
+                                                                @item.User_Name
+                                                            </li>
+                                                        </ul>
+
+
+
+                                                    </td>
+                                                    <td>
+                                                        <span>@item.Department_Name</span>
+
+                                                    </td>
+                                                    <td class="project-state">
+
+                                                        @if (item.Request_Priority_Name == "Yüksek")
+                                                        {<span class='chip red lighten-5'><span class="red-text" style="font-size:16px">@item.Request_Priority_Name</span></span>
+
+                                                    }@if (item.Request_Priority_Name == "Orta")
+                                                        {
+                                                            <span class='chip orange lighten-5'><span class="orange-text" style="font-size:16px">@item.Request_Priority_Name</span></span>
+                                                        }@if (item.Request_Priority_Name == "Düşük")
+                                                    {
+                                                        <span class='chip blue lighten-5'><span class="blue-text" style="font-size:16px">@item.Request_Priority_Name</span></span>
+                                                    }
+
+
+                                                    </td>
+                                                    <td>
+
+                                                        @item.RequestCategory_Name
+
+                                                    </td>
+
+
+                                                    <td>
+                                                        @if (item.Responsible_Id != 0)
+                                                        {
+
+                                                            @item.Responsible_Name
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="chip blue lighten-5">
+                                                                <span class="blue-text" style="font-size:16px">Üstlenilmedi</span>
+                                                            </span>
+                                                        }
+
+                                                    </td>
+                                                    <td>
+
+                                                        @if (item.Request_Undertaken_Date != null)
+                                                        {
+                                                            <span>@(((DateTime)item.Request_Undertaken_Date).ToString("dd MMMMM yyyy-HH:mm"))</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="chip blue lighten-5">
+                                                                <span class="blue-text" style="font-size:16px">Üstlenilmedi</span>
+                                                            </span>
+                                                        }
+
+
+                                                    </td>
+                                                    <td>
+
+                                                        <span>@(((DateTime)item.Create_Date).ToString("dd MMMMM yyyy-HH:mm"))</span>
+
+                                                    </td>
+
+                                                    <td>
+
+                                                        @if (item.End_Date != null)
+                                                        {
+                                                            <span>@(((DateTime)item.End_Date).ToString("dd MMMMM yyyy-HH:mm"))</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="chip orange lighten-5">
+                                                                <span class="orange-text" style="font-size:16px">Sonuçlanmadı</span>
+                                                            </span>
+                                                        }
+
+
+                                                    </td>
+                                                    <td class="project-state">
+                                                        @if (item.Request_Status != null)
+                                                        {
+                                                            @Html.Raw(item.Request_Status == true ? "<span class='chip green lighten-5'><span class='green-text' style='font-size:16px' >Çözüldü</span></span>" : "<span class='chip red lighten-5'><span class='red-text' style='font-size:16px'>Çözülmedi</span></span>")
+
+                                                        }
+                                                        else
+                                                        {<span class="chip gray lighten-5">
+                                                                <span class="dark-gray-text" style="font-size:16px">Bekliyor</span>
+                                                            </span>
+
+                                                        }
+
+                                                    </td>
+                                                    <td class="project-state">
+                                                        @Html.Raw(item.IsActive == true ? "<span class='chip green lighten-5'><span class='green-text' style='font-size:16px' >Aktif</span></span>" : "<span class='chip red lighten-5'><span class='red-text' style='font-size:16px'>Pasif</span></span>")
+
+                                                    </td>
+                                                    <td class="project-actions text-right">
+
+
+                                                        @if (item.Request_Undertaken == null || item.Request_Undertaken_Date == null)
+                                                        {
+                                                            <a href="/Request/TakeRequest/@item.Request_Id">
+                                                                <i class="material-icons">
+                                                                    bookmark
+                                                                </i>
+
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="/Request/BreakRequest/@item.Request_Id">
+                                                                <i class="material-icons">
+                                                                    launch
+                                                                </i>
+
+                                                            </a>
+
+                                                        }
+
+                                                        <a href="/Request/SolvedRequest/@item.Request_Id">
+                                                            <i class="material-icons">
+                                                                done
+                                                            </i>
+
+                                                        </a>
+                                                        <a alt="close" href="/Request/NotResolvedRequest/@item.Request_Id">
+                                                            <i class="material-icons">
+                                                                close
+                                                            </i>
+
+                                                        </a>
+
+
+                                                    </td>
+                                                }
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="chat-application">
+
+                    <div class="app-chat">
+                        <div class="content-area content-right">
+                            <div class="app-wrapper">
+                                <a href="#" data-target="chat-sidenav" class="sidenav-trigger hide-on-large-only">
+                                    <i class="material-icons">menu</i>
+                                </a>
+                                <div class="card card card-default scrollspy border-radius-6 fixed-width">
+                                    <div class="card-content chat-content p-0">
+
+                                        <div class="chat-content-area animate fadeUp">
+                                            <div class="chat-header">
+                                                <div class="row valign-wrapper">
+                                                    @foreach (var item in Model.Where(x => x.User_Id == x.Message_User_Id).Take(1))
+                                                    {
+                                                        <div class="col">
+                                                            <p class="m-0 blue-grey-text text-darken-4 font-weight-700">Konu: @item.Request_Subject</p>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <span class="option-icon right">
+
+                                                    <span class="badge badge pill red">@Model.Count</span>
+                                                </span>
+                                            </div>
+                                            <div class="chat-area" data-mdb-perfect-scrollbar="true"
+                                                 style="position: relative; height: 400px; overflow-y: scroll;" ">
+                                                <div class="chats">
+                                                    <div class="chats">
+
+                                                        @foreach (var item in Model)
+                                                        {
+
+
+                                                            var msg = item.Message_Content = item.Message_Content ?? "&nbsp;";
+                                                            if (!item.Message_Content.EndsWith("</p>"))
+                                                            {
+                                                                msg = "<p>" + item.Message_Content + "</p>";
+                                                            }
+
+
+
+                                                            if (item.User_Id == item.Message_User_Id)
+                                                            {
+                                                                Tbl_Users ObjUser = UserInfos.SingleOrDefault(x => x.id == item.User_Id);
+
+                                                                <div class="chat">
+
+                                                                    <div class="chat-avatar">
+                                                                        <a class="avatar"><img src="data:image/jpeg;base64,@Convert.ToBase64String(ObjUser.Picture)" class="circle" alt="avatar" /></a>
+                                                                    </div>
+
+                                                                    <div class="chat-body">
+                                                                        <div class="chat-text">@Html.Raw(item.Message_Content)</div>
+
+                                                                        @if (item.Message_Image1 != null || item.Message_Image2 != null || item.Message_Image3 != null || item.Message_Image4 != null || item.Message_Image5 != null)
+                                                                        {
+                                                                            <ul class="col s12">
+
+
+
+                                                                                @if (item.Message_Image1 != null)
+                                                                                {
+                                                                                    <li class="col s2">
+                                                                                        <span class="avatar"><img class="responsive-img mb-10 img-fluid" style="height: 150px; width: 100%" src="@Html.Raw(item.Message_Image1)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image1)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image1.Replace("/MessageImage/", ""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image1)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request" + item.Request_Id + " " + "User" + item.Message_User_Id + " MessageId" + item.Message_Id )"><i class="material-icons">cloud_download</i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }
+
+                                                                                @if (item.Message_Image2 != null)
+                                                                                {
+                                                                                    <li class="col s2">
+                                                                                        <span class="avatar"><img class="responsive-img mb-10 img-fluid" style="height: 150px; width: 100%" src="@Html.Raw(item.Message_Image2)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image2)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image2.Replace("/MessageImage/", ""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image2)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request" + item.Request_Id + " " + "User" + item.Message_User_Id + " MessageId" + item.Message_Id )"><i class="material-icons">cloud_download</i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }
+
+
+                                                                                @if (item.Message_Image3 != null)
+                                                                                {
+                                                                                    <li>
+                                                                                        <span class="mailbox-attachment-icon has-img"><img src="@Html.Raw(item.Message_Image3)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image3)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image3.Replace("/MessageImage/",""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image3)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request"+item.Request_Id+" "+"User"+item.Message_User_Id+" MessageId"+item.Message_Id )"><i class="fas fa-cloud-download-alt"></i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }
+                                                                                @if (item.Message_Image4 != null)
+                                                                                {
+                                                                                    <li>
+                                                                                        <span class="mailbox-attachment-icon has-img"><img src="@Html.Raw(item.Message_Image4)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image4)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image4.Replace("/MessageImage/",""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image4)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request"+item.Request_Id+" "+"User"+item.Message_User_Id+" MessageId"+item.Message_Id )"><i class="fas fa-cloud-download-alt"></i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }@if (item.Message_Image5 != null)
+                                                                                {
+                                                                                    <li>
+                                                                                        <span class="mailbox-attachment-icon has-img"><img src="@Html.Raw(item.Message_Image5)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image5)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image5.Replace("/MessageImage/",""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image5)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request"+item.Request_Id+" "+"User"+item.Message_User_Id+" MessageId"+item.Message_Id )"><i class="fas fa-cloud-download-alt"></i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }
+                                                                            </ul>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <p>
+                                                                    @item.User_Name <span class='chip gray lighten-5'>
+                                                                        <small>@item.Sent_Date</small>
+                                                                    </span>
+                                                                </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                Tbl_Users ObjUser = UserInfos.SingleOrDefault(x => x.id == item.Responsible_Id);
+
+                                                                <div class="chat chat-right">
+                                                                    <div class="chat-avatar">
+                                                                        <a class="avatar">
+
+                                                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(ObjUser.Picture)" class="circle" alt="avatar" />
+
+                                                                        </a>
+
+                                                                    </div>
+                                                                    <div class="chat-body">
+                                                                        <div class="chat-text">@Html.Raw(item.Message_Content)</div>
+
+                                                                        @if (item.Message_Image1 != null || item.Message_Image2 != null || item.Message_Image3 != null || item.Message_Image4 != null || item.Message_Image5 != null)
+                                                                        {
+                                                                            <ul class="col s12">
+
+
+
+                                                                                @if (item.Message_Image1 != null)
+                                                                                {
+                                                                                    <li class="col s2">
+                                                                                        <span class="avatar"><img class="responsive-img mb-10 img-fluid" style="height: 150px; width: 100%" src="@Html.Raw(item.Message_Image1)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image1)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image1.Replace("/MessageImage/", ""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image1)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request" + item.Request_Id + " " + "User" + item.Message_User_Id + " MessageId" + item.Message_Id )"><i class="material-icons">cloud_download</i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }
+
+                                                                                @if (item.Message_Image2 != null)
+                                                                                {
+                                                                                    <li class="col s2">
+                                                                                        <span class="avatar"><img class="responsive-img mb-10 img-fluid" style="height: 150px; width: 100%" src="@Html.Raw(item.Message_Image2)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image2)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image2.Replace("/MessageImage/", ""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image2)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request" + item.Request_Id + " " + "User" + item.Message_User_Id + " MessageId" + item.Message_Id )"><i class="material-icons">cloud_download</i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }
+
+
+                                                                                @if (item.Message_Image3 != null)
+                                                                                {
+                                                                                    <li>
+                                                                                        <span class="mailbox-attachment-icon has-img"><img src="@Html.Raw(item.Message_Image3)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image3)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image3.Replace("/MessageImage/",""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image3)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request"+item.Request_Id+" "+"User"+item.Message_User_Id+" MessageId"+item.Message_Id )"><i class="fas fa-cloud-download-alt"></i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }
+                                                                                @if (item.Message_Image4 != null)
+                                                                                {
+                                                                                    <li>
+                                                                                        <span class="mailbox-attachment-icon has-img"><img src="@Html.Raw(item.Message_Image4)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image4)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image4.Replace("/MessageImage/",""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image4)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request"+item.Request_Id+" "+"User"+item.Message_User_Id+" MessageId"+item.Message_Id )"><i class="fas fa-cloud-download-alt"></i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }@if (item.Message_Image5 != null)
+                                                                                {
+                                                                                    <li>
+                                                                                        <span class="mailbox-attachment-icon has-img"><img src="@Html.Raw(item.Message_Image5)" alt="Attachment"></span>
+
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="@(item.Message_Image5)" target="_blank" class="mailbox-attachment-name"><i class="fas fa-camera"></i> @(item.Message_Image5.Replace("/MessageImage/",""))</a>
+                                                                                            <span class="mailbox-attachment-size clearfix mt-1">
+                                                                                                <span class="fileSizeProperties"></span>
+                                                                                                <a href="@(item.Message_Image5)" class="btn btn-default btn-sm float-right downloadImage" data-imagename="@("Request"+item.Request_Id+" "+"User"+item.Message_User_Id+" MessageId"+item.Message_Id )"><i class="fas fa-cloud-download-alt"></i></a>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }
+                                                                            </ul>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <p class="right">
+                                                                    @item.Responsible_Name <span class='chip gray lighten-5'>
+                                                                        <small>@item.Sent_Date</small>
+                                                                    </span>
+                                                                </p>
+                                                                <br /><br />
+                                                            }
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @if (TicketModel.Responsible_Id != 0)
+                                            {
+
+
+                                                <div class="chat-input row">
+
+                                                    @using (Html.BeginForm("ReplyRequest", "Message", FormMethod.Post, new { @class = "chat-input", enctype = "multipart/form-data" }))
+                                                    {
+                                                        foreach (var item in Model.Take(1))
+                                                        {
+                                                            <input id="Request_Id" name="Request_Id" type="hidden" value="@item.Request_Id" />
+                                                            <input id="Request_Subject" name="Request_Subject" type="hidden" value="@item.Request_Subject" />
+                                                        }
+
+
+
+
+                                                        @*<input name="Message_Content" type="text" placeholder="Mesajınız.." class="message mb-0 dropify">*@
+                                                        <div class="center-align">
+                                                            <div class="col s12 "><textarea style="width:1000px" class="ckeditor" id="editor1" name="Message_Content" placeholder="Mesajınız.." rows="1"></textarea></div>
+                                                        </div>
+
+                                                        <div class="file-field input-field col s6">
+                                                            <div class="btn btn-file">
+                                                                <span>Attach Image</span>
+                                                                <input type="file" name="MessageImage">
+                                                            </div>
+                                                            <div class="file-path-wrapper hide">
+                                                                <input class="file-path validate" type="text">
+                                                            </div>
+                                                        </div>
+                                                        <div class="file-field input-field col s6 right-align">
+                                                            <button type="submit" id="sendMessage" class="btn waves-effect waves-light float-right send"> Send</button>
+                                                        </div>
+
+                                                    }
+
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

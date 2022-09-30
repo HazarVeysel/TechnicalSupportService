@@ -1,0 +1,56 @@
+﻿@model DataAccessLayer.Models.Questions
+@{
+    Layout = "~/Views/Shared/_FAQIndexLayout.cshtml";
+
+}
+
+
+<div class="mglonx p3 darken1" id="article-container">
+    <div class="max-width-4 mx-auto">
+        <nav class="lg-flex md-flex items-center justify-between mb3">
+            <ol class="breadcrumbs">
+
+                <li title="Home">
+
+                    <a href="/">Ana Sayfa</a>
+
+                </li>
+
+
+                <li title="@Model.Categories.Category_Name">
+
+                    <a href="/">@Model.Categories.Category_Name</a>
+
+                </li>
+                <li title="Questions">
+
+                    <a href="/FAQ/Questions">Sorular</a>
+
+                </li>
+
+                <li title="@Model.Question_Title">
+
+                    <a href="/">@Model.Question_Title</a>
+
+                </li>
+
+            </ol>
+        </nav>
+                @*<header class="article-header">
+                    <h1 title="@Model.Question_Details" class="display mb4" style="font-size: 2.5em;">
+                        @Model.Question_Details
+
+                    </h1>
+                </header>*@
+
+                <section class="article-info">
+                    <div class="article-content">
+                        <div class="article-body">
+                            <p>@Html.Raw(Model.Answer_Content)</p>
+
+                        </div>
+                    </div>
+                </section>
+       
+        </div>
+    </div>

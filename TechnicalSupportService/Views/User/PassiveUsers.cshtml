@@ -1,0 +1,104 @@
+﻿@using DataAccessLayer.Models
+@model List<Tbl_Users>
+@{
+    ViewBag.Title = "PassiveUsers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Users Management</h1>
+            </div>
+            <!--<div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">-->
+                    @*<li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Projects</li>*@
+                    <!--<a class="btn btn-warning btn-sm" style="font-size:20px" href="/User/AddUser/">
+                        <i class="fas fa-user-plus">
+
+                        </i>
+                        Add New User
+                    </a>
+
+                </ol>
+            </div>-->
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <!-- Default box -->
+    <div class="card card-solid">
+        <div class="card-body pb-0">
+            <div class="row d-flex align-items-stretch">
+                @foreach (var item in Model.Where(x => x.Is_Active == false))
+                {
+                    <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                        <div class="card bg-light">
+                            <div class="card-header text-muted border-bottom-0">
+                                @item.Department.Department_Name
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h2 class="lead"><b>@item.User_Name @item.User_Surname</b></h2>
+                                        <p class="text-muted text-sm"><b>Ülke / Şehir : </b> @item.Country / @item.City </p>
+                                        <p class="text-muted text-sm"><b>Bağlı Olduğu Yönetici: </b>@item.Attached_Person</p>
+
+                                        <ul class="ml-4 mb-0 fa-ul text-muted">
+                                            <li class="small"><span class="fa-li"><i class="fas fa-lg fa-mail-bulk"></i></span> Email: @item.User_Mail</li>
+                                            <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone:+90 @item.User_Phone</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-5 text-center">
+                                        <img src="~/MyTheme/dist/img/user1-128x128.jpg" alt="" class="img-circle img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-right">
+                                    <a href="/User/UsersRequests/@item.User_Id" class="btn btn-sm bg-teal">
+                                        <i class="fas fa-user-tag"></i> User's Requests
+                                    </a>
+                                    <a href="/User/EditUser/@item.User_Id" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-user-edit"></i> Edit Profile
+                                    </a>
+                                    <a href="/User/ActiveUser/@item.User_Id" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-user-plus"></i> Activate Person
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+    <!-- /.card -->
+</section>
+
+@*<br />
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Mail</th>
+            <th>Phone</th>
+            <th>Department</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.User_Id</td>
+                <td>@item.User_Name</td>
+                <td>@item.User_Surname</td>
+                <td>@item.User_Mail</td>
+                <td>@item.User_Phone</td>
+                <td>@item.Department_Id</td>
+            </tr>
+        }
+    </table>*@

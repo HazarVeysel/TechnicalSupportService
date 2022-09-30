@@ -1,0 +1,54 @@
+﻿@model DataAccessLayer.Models.Tbl_Users
+@{
+    ViewBag.Title = "EditUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Edit User Page</h2>
+@using (Html.BeginForm("EditUser", "User", FormMethod.Post))
+{
+<div class="form-group">
+    @*@Html.Label("ID:")*@
+    @Html.HiddenFor(x => x.User_Id, new { @class = "form-control" })
+    <br />
+    @Html.Label("Name:")
+    @Html.TextBoxFor(x => x.User_Name, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.User_Name)
+    <br />
+    @Html.Label("Surname:")
+    @Html.TextBoxFor(x => x.User_Surname, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.User_Surname)
+    <br />
+    @Html.Label("Password:")
+    @Html.TextBoxFor(x => x.User_Password, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.User_Password)
+    <br />
+    @Html.Label("Mail:")
+    @Html.TextBoxFor(x => x.User_Mail, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.User_Mail)
+    <br />
+    @Html.Label("Phone:")
+    @Html.TextBoxFor(x => x.User_Phone, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.User_Phone)
+    <br />
+    @Html.Label("City:")
+    @Html.TextBoxFor(x => x.City, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.City)
+    <br />
+    @Html.Label("Country:")
+    @Html.TextBoxFor(x => x.Country, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Country)
+    <br />
+    @Html.Label("Attached Person:")
+    @Html.TextBoxFor(x => x.Attached_Person, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Attached_Person)
+    <br />
+    @Html.Label("Department")
+    @Html.DropDownListFor(x => x.Department_Id, (List<SelectListItem>)ViewBag.vld, new { @class = "form-control" })
+    <br />
+    @*@Html.Label("Aktif")
+    @Html.DropDownListFor(x => x.Is_Active, (List<SelectListItem>)ViewBag.vlactive, new { @class = "form-control" })*@
+    <button class="btn btn-info">Update</button>
+</div>
+}
+

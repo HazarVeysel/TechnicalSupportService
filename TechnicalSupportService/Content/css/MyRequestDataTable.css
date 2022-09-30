@@ -1,0 +1,15 @@
+﻿table.dataTable tbody tr.selected {
+    background-color: #f7d43a !important;
+}
+table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display tbody tr.odd.selected {
+    background-color: #f7d43a !important;
+}
+
+
+table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody tr:hover.selected {
+    background-color: #f7d43a !important;
+}
+
+.dataTables_filter{
+    display:none;
+}

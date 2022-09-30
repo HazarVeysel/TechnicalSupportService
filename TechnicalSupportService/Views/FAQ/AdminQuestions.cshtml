@@ -1,0 +1,163 @@
+﻿@model List<TechnicalSupportService.Models.QuestionCategory>
+@{
+    ViewBag.Title = "AdminPanel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Css{
+    <link href="~/Content/plugins/data-tables/css/jquery.dataTables.min.css" rel="stylesheet" />
+}
+
+@section Js{
+    <script src="~/Content/plugins/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/js/pages/FaqQuestions.js"></script>
+}
+<div id="main">
+    <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+        <div class="breadcrumbs-dark pb-0 pt-0" id="breadcrumbs-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 m6">
+                        <ol class="breadcrumbs mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">SSS Kategorileri</a>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col s2 m6 l6">
+
+                        <ul class="dropdown-content" id="dropdown1" tabindex="0">
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-profile-page.html">Profilim<span class="new badge red">2</span></a></li>
+                            <li class="divider" tabindex="-1"></li>
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="container">
+                <section class="users-list-wrapper section">
+                    <div class="users-list-table">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="col s11">
+                                    <br />
+                                    <span class="card-title"><b>Sıkça Sorulan Sorular ve Cevapları</b></span>
+                                </div>
+                                <div class="col s1">
+                                    <ol class="breadcrumb float-sm-right">
+
+                                        <a class="mb-6 btn-floating btn-large waves-effect waves-light orange darken-1" href="/FAQ/EditQuestion/0" />
+                                        <i class="material-icons">add</i>
+                                        
+                                        </a>
+
+                                    </ol>
+                                </div>
+                                <div class="responsive-table">
+                                    <table class="table table-striped projects">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 1%">
+                                                    ID
+                                                </th>
+                                                <th style="width: 10%">
+                                                    Kategori
+                                                </th>
+                                                <th style="width: 10%">
+                                                    Soru Başlığı
+                                                </th>
+                                                <th style="width: 30%" class="text-center">
+                                                    Soru Detayı
+                                                </th>
+                                                <th style="width: 35%">
+                                                    Cevap
+                                                </th>
+                                                <th style="width: 15%">
+                                                    <span>Oluş. Tarihi</span>
+                                                </th>
+                                                <th style="width: 3%" class=" text-nowrap">
+                                                    Okunma Sayısı
+                                                </th>
+                                                <th style="width: 10%">
+                                                    Aktiflik
+                                                </th>
+                                                <th style="width: 25%">
+                                                    
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.Question_ID
+                                                    </td>
+                                                    <td>
+                                                        @item.Question_Category_Name
+                                                    </td>
+                                                    <td>
+                                                        @item.Question_Title
+
+                                                    </td>
+                                                    <td class="project-state">
+                                                        @item.Question_Details
+                                                    </td>
+                                                    <td>
+                                                        @if (item.Answer_Content.Length > 30)
+                                                        {
+                                                            @item.Answer_Content.Substring(0, 30)<span>...</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.Raw(item.Answer_Content)
+                                                        }
+                                                    </td>
+                                                    <td class="text-nowrap">
+                                                        <span>@(((DateTime)item.Create_Date).ToString("dd MMMMM yyyy-HH:mm"))</span>
+                                                    </td>
+                                                    <td>
+                                                        @item.Reading_Count
+                                                    </td>
+                                                    <td>
+                                                        
+                                                            @Html.Raw(item.IsActive == true ? "<span status-text class='chip green lighten-5'><span class='green-text' style='font-size:16px' >Aktif</span></span>" : "<span status-text class='chip red lighten-5'><span class='red-text' style='font-size:16px'>Pasif</span></span>")
+                                                    </td>
+                                                    <td class="project-actions text-right text-nowrap">
+
+                                                        <a class="add-file-btn btn  waves-effect waves-light mb-1" style="font-size:15px" href="/Faq/EditQuestion/@item.Question_ID">
+                                                            <i class="material-icons">
+                                                                edit
+                                                            </i>
+                                                        </a>
+
+                                                        <button class="add-file-btn btn  waves-effect waves-light mb-1" data-id="@item.Question_ID" data-isActive="@item.IsActive" buttonActivePassive>
+                                                            @if (item.IsActive == false)
+                                                            {
+                                                                <i class="material-icons">
+                                                                    done
+                                                                </i>
+                                                            }
+                                                            else
+                                                            { <i class="material-icons">
+                                                                    do_not_disturb_alt
+                                                                </i>
+                                                            }
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

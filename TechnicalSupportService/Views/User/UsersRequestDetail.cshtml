@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "UsersRequestDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Css{
+    <link href="~/Content/plugins/data-tables/css/jquery.dataTables.min.css" rel="stylesheet" />
+}
+
+@section Js{
+    <script src="~/Content/plugins/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/js/pages/requests.js"></script>
+}
+
+
+
+
+<div id="main">
+    <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+        <div class="breadcrumbs-dark pb-0 pt-0" id="breadcrumbs-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 m6">
+                        <ol class="breadcrumbs mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Talepler</a>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col s2 m6 l6">
+
+                        <ul class="dropdown-content" id="dropdown1" tabindex="0">
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-profile-page.html">Profilim<span class="new badge red">2</span></a></li>
+                            <li class="divider" tabindex="-1"></li>
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="container">
+                <!-- users list start -->
+                <section class="users-list-wrapper section">
+
+                    <div class="users-list-filter">
+                        <div class="card-panel">
+                            <div class="row">
+                                <form>
+                                    <div class="col s12 m6 l3">
+                                        <label for="users-list-verified">Üstlenme</label>
+                                        <div class="input-field">
+                                            <select class="form-control" id="users-list-verified">
+
+                                                <option value="Yes">Evet</option>
+                                                <option value="No">Hayır</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6 l3">
+                                        <label for="users-list-role">Öncelik Seviyesi</label>
+                                        <div class="input-field">
+                                            <select class="form-control" id="users-list-role">
+                                                <option value="">Yüksek</option>
+                                                <option value="User">Orta</option>
+                                                <option value="Staff">Düşük</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6 l3">
+                                        <label for="users-list-status">Durum</label>
+                                        <div class="input-field">
+                                            <select class="form-control" id="users-list-status">
+
+                                                <option value="Active">Açık Talep</option>
+                                                <option value="Closed">Kapalı Talep</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6 l3 display-flex align-items-center show-btn">
+                                        <button type="submit" class="btn btn-block indigo waves-effect waves-light">Filtrele</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="users-list-table">
+                        <div class="card">
+                            <div class="card-content">
+                                <table id="data-table-simple-detail" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Talep eden</th>
+                                            <th>Öncelik</th>
+                                            <th>Kategori</th>
+                                            <th>Konu</th>
+                                            <th>Departman</th>
+                                            <th>Üstlenen</th>
+                                            <th>Üstlenilme</th>
+                                            <th>Talep Tarihi</th>
+                                            <th>Üstlenme Tarihi</th>
+                                            <th>Kapanış Tarihi</th>
+                                            <th>Durum</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="content-overlay"></div>
+        </div>
+    </div>
+</div>

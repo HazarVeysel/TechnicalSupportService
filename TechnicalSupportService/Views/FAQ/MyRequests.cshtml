@@ -1,0 +1,83 @@
+﻿@model List<TechnicalSupportService.Controllers.ReqMesClass>
+
+@{
+    ViewBag.Title = "MyRequest";
+    Layout = "~/Views/Shared/_FAQIndexLayout.cshtml";
+    string color = "";
+    var UID = Convert.ToInt32(Session["UserInfo"]);
+
+
+}
+@section Css{
+    <link href="~/Content/plugins/data-tables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/css/MyRequestDataTable.css" rel="stylesheet" />
+}
+
+@section Js{
+
+    <script src="~/Content/plugins/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/js/pages/myrequest.js"></script>
+    
+
+}
+@Html.Hidden("User_Id", UID)
+<div class="p3 mglonx darken1">
+    <div class="max-width-4 mx-auto">
+        <nav class="flex items-center justify-between mb3">
+            <ol class="breadcrumbs">
+
+                <li title="Home">
+
+                    <a href="/">Ana Sayfa</a>
+
+                </li>
+
+                <li title="All Questions">
+
+                    <a href="/FAQ/MyRequests">Taleplerim</a>
+
+                </li>
+
+            </ol>
+        </nav>
+        @*<header class="display huge mb2">
+            <span class="display-4">
+                Taleplerim
+
+            </span>
+
+        </header>*@
+        
+            
+                
+                    <table id="data-table-myreq" class="display">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Talep eden</th>
+                                <th>Öncelik</th>
+                                <th>Kategori</th>
+                                <th>Konu</th>
+                                <th>Departman</th>
+                                <th>Üstlenen</th>
+                                <th>Üstlenilme</th>
+                                <th>Talep Tarihi</th>
+                                <th>Üstlenme Tarihi</th>
+                                <th>Kapanış Tarihi</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                
+           
+        
+        <div class="content-overlay"></div>
+    </div>
+</div>
+
+
+
+

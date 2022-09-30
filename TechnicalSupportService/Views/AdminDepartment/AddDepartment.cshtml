@@ -1,0 +1,31 @@
+﻿@model DataAccessLayer.Models.Department
+
+@{
+    ViewBag.Title = "AddDepartment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add Department Page</h1>
+<br />
+
+@using (Html.BeginForm("AddDepartment", "AdminDepartment", FormMethod.Post)) //function, controller
+{
+<div class="form-group">
+    @Html.Label("Department Name:")
+    @Html.TextBoxFor(x => x.Department_Name, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Department_Name)
+    <br />
+    <br />
+    @Html.Label("Department Description:")
+    @Html.TextAreaFor(x => x.Department_Description, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Department_Description)
+    <br />
+    @Html.Label("Department Director:")
+    @Html.TextBoxFor(x => x.Department_Director, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Department_Director)
+    <br />
+    <br />
+    <button class="btn btn-info">Save</button>
+</div>
+}
+

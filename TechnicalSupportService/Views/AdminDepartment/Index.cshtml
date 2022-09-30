@@ -1,0 +1,148 @@
+﻿@using DataAccessLayer.Models;
+@model List<Department>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Css{
+
+
+}
+
+@section Js{
+
+}
+
+<div id="main">
+    <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+        <div class="breadcrumbs-dark pb-0 pt-0" id="breadcrumbs-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 m6">
+                        <ol class="breadcrumbs mb-0">
+                            <li class="breadcrumb-item active">
+                                <a href="/AdminDepartment">Departmanlar</a>
+                            </li>
+
+                        </ol>
+                    </div>
+                    <div class="col s2 m6 l6">
+
+                        <ul class="dropdown-content" id="dropdown1" tabindex="0">
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-profile-page.html">Profilim<span class="new badge red">2</span></a></li>
+                            <li class="divider" tabindex="-1"></li>
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="container">
+                <section class="users-list-wrapper section">
+                    <div class="users-list-table">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="responsive-table">
+                                    <table class="table table-striped projects">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10%">
+                                                    Departman Adı
+                                                </th>
+                                                <th style="width: 12%" class="text-center">
+                                                    Yönetici
+                                                </th>
+                                                <th style="width: 20%">
+                                                    Departman Üyeleri
+                                                </th>
+                                                <th style="width: 20%" class="text-center">
+                                                    Açıklama
+                                                </th>
+                                                <th style="width: 10%">
+                                                    Aktiflik
+                                                </th>
+                                                <th style="width: 3%">
+                                                    Düzenle
+                                                </th>
+                                                <th style="width: 7%" >
+                                                    Aktif/Pasif Yap
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>                                                       
+                                                            @item.Department_Name  
+                                                    </td>
+                                                    <td class="project-state">
+                                                        @item.Department_Director
+                                                    </td>
+                                                    <td>
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item float-left pr-2">
+                                                                <img alt="Avatar" class="table-avatar" src="~/MyTheme/dist/img/avatar.png">
+                                                            </li>
+                                                            <li class="list-inline-item float-left pr-2">
+                                                                <img alt="Avatar" class="table-avatar" src="~/MyTheme/dist/img/avatar2.png">
+                                                            </li>
+                                                            <li class="list-inline-item float-left pr-2">
+                                                                <img alt="Avatar" class="table-avatar" src="~/MyTheme/dist/img/avatar3.png">
+                                                            </li>
+                                                            <li class="list-inline-item float-left pr-2">
+                                                                <img alt="Avatar" class="table-avatar" src="~/MyTheme/dist/img/avatar04.png">
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+
+                                                    <td class="project-state">
+                                                        @item.Department_Description
+                                                    </td>
+                                                    <td>
+                                                        @Html.Raw(item.Is_Active == true ? "<span class='chip green lighten-5'><span class='green-text' style='font-size:16px' >Aktif</span></span>" : "<span class='chip red lighten-5'><span class='red-text' style='font-size:16px'>Pasif</span></span>")
+                                                    </td>
+                                                    <td class="center">
+                                                        <a href="/AdminDepartment/EditDepartment/@item.Department_Id">
+                                                            <i class="material-icons">
+                                                                edit
+                                                            </i>
+                                                        </a>
+                                                    </td>
+                                                    <td class="project-actions center">
+
+                                                        @if (item.Is_Active == false)
+                                                        {
+                                                            <a href="/AdminDepartment/ActivateDepartment/@item.Department_Id">
+                                                                <i class="material-icons">
+                                                                    done
+                                                                </i>
+
+                                                            </a>
+                                                        }
+                                                        else
+                                                        { <a href="/AdminDepartment/DeleteDepartment/@item.Department_Id">
+                                                                <i class="material-icons">
+                                                                    do_not_disturb_alt
+                                                                </i>
+
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="content-overlay"></div>
+        </div>
+    </div>
+</div>

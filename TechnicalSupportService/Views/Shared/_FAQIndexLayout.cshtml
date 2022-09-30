@@ -1,0 +1,39 @@
+﻿
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <title>Batı Logistic Support</title>
+
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <link rel="canonical" href="#" />
+    <link rel="alternate" hreflang="en" href="#" />
+
+    <link href="~/Content/css/FAQDropdown.css" rel="stylesheet" />
+    <link href="~/Content/css/FAQSearchTitles.css" rel="stylesheet" />
+    <link href="~/Content/css/FAQFull.css" rel="stylesheet" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    @RenderSection("Css", false)
+</head>
+<body class="">
+    @Html.Partial("LayoutPartials/_Header")
+
+    @RenderBody()
+
+    @Html.Partial("LayoutPartials/_Footer")
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="~/Content/js/TopFixedMenu.js"></script>
+    <script src="~/Content/js/Dropdown.js"></script>
+
+    @RenderSection("JS", false)
+</body>
+</html>

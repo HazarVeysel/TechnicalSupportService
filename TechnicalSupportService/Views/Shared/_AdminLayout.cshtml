@@ -1,0 +1,650 @@
+﻿@using DataAccessLayer.Concrete
+@using DataAccessLayer.Models
+@{
+    Layout = null;
+    helpdeskEntities c = new helpdeskEntities();
+    bati_serverEntities b = new bati_serverEntities();
+    string p;
+    p = (string)Session["username"];
+    var UserInfo = b.Tbl_Users.Where(x => x.username == p).FirstOrDefault();
+}
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Batı Logistic Support Center">
+    <meta name="keywords" content="Batı, batı logistic, Log, Bati, logistic, bati logistic, batı lojistik, bati lajistic">
+    <meta name="author" content="Bati Logistic">
+    <title>Batı Lojistik | Support Center</title>
+    <link rel="apple-touch-icon" href="~/Content/Img/apple-touch-icon-152x152.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/Img/favicon-32x32.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <link href="~/Content/vendors/vendors.min.css" rel="stylesheet" />
+    <link href="~/Content/vendors/data-tables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/vendors/data-tables/extensions/responsive/css/dataTables.responsive.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Css/style.css">
+    <link rel="stylesheet" href="~/MyTheme/plugins/summernote/summernote-bs4.css" />
+    <link href="~/Content/Css/app-chat.css" rel="stylesheet" />
+    <link href="~/Content/Css/app-file-manager.css" rel="stylesheet" />
+    
+    @*<link rel="stylesheet" type="text/css" href="~/Content/Css/dashboard-modern.css">*@
+    <link href="~/Content/Css/page-users.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Css/custom.min.css">
+
+
+</head>
+<body class="vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu preload-transitions 2-columns   " data-open="click" data-menu="vertical-modern-menu" data-col="2-columns">
+
+    <header class="page-topbar" id="header">
+        <div class="navbar navbar-fixed">
+            <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
+                <div class="nav-wrapper">
+                    <div class="header-search-wrapper hide-on-med-and-down">
+                        <i class="material-icons">search</i>
+                        <input class="header-search-input z-depth-2" type="text" name="Search" placeholder="Arama yap" data-search="template-list">
+                        <ul class="search-list collection display-none"></ul>
+                    </div>
+                    <ul class="navbar-list right">
+
+
+                        <li class="hide-on-extra-large-only search-input-wrapper"><a class="waves-effect waves-block waves-light search-button" href="javascript:void(0);"><i class="material-icons">search</i></a></li>
+                        <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown"><i class="material-icons">notifications_none<small class="notification-badge">5</small></i></a></li>
+                        <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img src="~/Content/Img/avatar-1.png" alt="avatar"><i></i></span></a></li>
+
+                    </ul>
+                    <!-- notifications-dropdown-->
+                    <ul class="dropdown-content" id="notifications-dropdown">
+                        <li>
+                            <h6>NOTIFICATIONS<span class="new badge">5</span></h6>
+                        </li>
+                        <li class="divider"></li>
+
+                        <li>
+                            <a class="black-text" href="#!"><span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>
+                            <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
+                        </li>
+                        <li>
+                            <a class="black-text" href="#!"><span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
+                            <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
+                        </li>
+                        <li>
+                            <a class="black-text" href="#!"><span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>
+                            <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
+                        </li>
+
+                    </ul>
+                    <!-- profile-dropdown-->
+                    <ul class="dropdown-content" id="profile-dropdown">
+                        <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li>
+                        <li><a class="grey-text text-darken-1" href="app-chat.html"><i class="material-icons">chat_bubble_outline</i> Chat</a></li>
+                        <li><a class="grey-text text-darken-1" href="page-faq.html"><i class="material-icons">help_outline</i> Help</a></li>
+                        <li class="divider"></li>
+                        <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">lock_outline</i> Lock</a></li>
+                        <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li>
+                    </ul>
+                </div>
+                <nav class="display-none search-sm">
+                    <div class="nav-wrapper">
+                        <form id="navbarForm">
+                            <div class="input-field search-input-sm">
+                                <input class="search-box-sm mb-0" type="search" required="" id="search" placeholder="Search" data-search="template-list">
+                                <label class="label-icon" for="search"><i class="material-icons search-sm-icon">search</i></label><i class="material-icons search-sm-close">close</i>
+                                <ul class="search-list collection search-list-sm display-none"></ul>
+                            </div>
+                        </form>
+                    </div>
+                </nav>
+            </nav>
+        </div>
+    </header>
+
+    <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
+        <div class="brand-sidebar">
+            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img class="hide-on-med-and-down" src="~/Content/Img/materialize-logo-color.png" alt="materialize logo" /><img class="show-on-medium-and-down hide-on-med-and-up" src="~/Content/Img/materialize-logo.png" alt="materialize logo" /><span class="logo-text hide-on-med-and-down">Batı Lojistik</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
+        </div>
+        <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
+            <li class="navigation-header">
+                <a class="navigation-header-text">Yönetici Menüsü</a><i class="navigation-header-icon material-icons">more_horiz</i>
+            </li>
+            <li class="active bold">
+                <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Requests">Talepler</span>@*<span class="badge badge pill orange float-right mr-10">3</span>*@</a>
+                <div>
+                    <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                        <li class="active">
+                            <a class="active" href="/Request/Index"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Requests">Aktif Talepler</span></a>
+                        </li>
+                        <li>
+                            <a href="/Request/PassiveIndex"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Requests">Pasif Talepler</span></a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="/RequestCategory/Index"><i class="material-icons">format_list_bulleted</i><span class="menu-title" data-i18n="Request Categories">Talep Kategorileri</span>@*<span class="badge new badge pill pink accent-2 float-right mr-2">5</span>*@</a>
+            </li>
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="/User/Index"><i class="material-icons">face</i><span class="menu-title" data-i18n="Users">Kullanıcılar</span>@*<span class="badge new badge pill pink accent-2 float-right mr-2">5</span>*@</a>
+            </li>
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="/AdminDepartment"><i class="material-icons">group</i><span class="menu-title" data-i18n="Departments">Departmanlar</span>@*<span class="badge new badge pill pink accent-2 float-right mr-2">5</span>*@</a>
+            </li>
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="/Login/LogOut/"><i class="material-icons">lock</i><span class="menu-title" data-i18n="Logout">Çıkış Yap</span>@*<span class="badge new badge pill pink accent-2 float-right mr-2">5</span>*@</a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+
+    @RenderBody()
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="page-footer footer footer-static footer-dark gradient-45deg-indigo-purple gradient-shadow navbar-border navbar-shadow">
+        <div class="footer-copyright">
+            <div class="container"><span>&copy; @DateTime.Now.Year Freightcon International Taşımacılık Tic. Ltd. Şti - Tüm Hakları Saklıdır</span><span class="right hide-on-small-only">Design and Developed by Freightcon International Software Team</span></div>
+        </div>
+    </footer>
+
+    <script src="~/Content/Js/jquery.min.js"></script>
+    <script src="~/Content/Js/app-chat.js"></script>
+    <script src="~/Content/Js/vendors.min.js"></script>
+    <script src="~/Content/Js/jquery-3.5.1.js"></script>
+    <script src="~/Content/Js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/Js/vendors.js"></script>
+    <script src="~/Content/Js/plugins.js"></script>
+    <script src="~/Content/Js/search.js"></script>
+    <script src="~/Content/Js/custom-script.js"></script>
+    <script src="~/MyTheme/plugins/summernote/summernote.min.js"></script>
+    <script src="~/Content/Js/app-file-manager.min.js"></script>
+
+    @*<script src="~/Content/Js/customizer.js"></script>*@
+    <script>
+        $(document).ready(function () {
+
+            var columns = [
+                { "data": "Request_Id", "name": "1", "autoWidth": false },
+                { "data": "User_Name", "name": "2", "autoWidth": true, "sortable": false },
+                { "data": "Request_Priority_Name", "name": "3", "autoWidth": true },
+                { "data": "RequestCategory_Name", "name": "4", "autoWidth": true },
+                { "data": "Request_Subject", "name": "5", "autoWidth": true, "sortable": false },
+                { "data": "Department_Name", "name": "6", "autoWidth": true },
+                { "data": "Responsible_Name", "name": "7", "autoWidth": true },
+                { "data": "Request_Undertaken", "name": "8", "autoWidth": true, "sortable": false },
+                {
+                    "data": "Create_Date", "name": "9", "autoWidth": true, "render": function (data, type, row) {
+                        return ConvertJsonDateString(data);
+                    }
+                },
+                {
+                    "data": "Request_Undertaken_Date", "name": "10", "autoWidth": true, "render": function (data, type, row) {
+                        return ConvertJsonDateString(data);
+                    }
+                },
+                {
+                    "data": "End_Date", "name": "11", "autoWidth": true, "render": function (data, type, row) {
+                        return ConvertJsonDateString(data);
+                    }
+                },
+                { "data": "Request_Status", "name": "12", "autoWidth": true, "sortable": false },
+                { "data": null, "name": "13", "autoWidth": true, "sortable": false }
+
+            ];
+
+            var table = $("#users-list-datatable").DataTable({
+
+                "destroy": true,
+                scrollX: true,
+                "serverside": true,
+                "lengthChange": false,
+                "ajax": {
+                    "url": "/Request/ActiveRequests",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": columns,
+                "createdRow": function (row, data, dataIndex) {
+                    $(row).attr('data-id', data["Request_Id"]);
+
+                }
+
+            });
+
+            $(document).delegate("#users-list-datatable tbody tr", "dblclick", function () {
+
+                var a = document.createElement('a');
+                a.target = '_blank';
+
+                let id = $(this).attr('data-id')
+
+
+
+                a.href = '/Message/MessagesByRequest/' + id;
+
+
+                a.click();
+            })
+            var PassiveTable = $("#PassiveRequests").DataTable({
+
+                "destroy": true,
+                scrollX: true,
+                "serverside": true,
+                "ajax": {
+                    "url": "/Request/Passive",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": columns,
+                "createdRow": function (row, data, dataIndex) {
+                    $(row).attr('data-id', data["Request_Id"]);
+
+                }
+
+            });
+            $(document).delegate("#PassiveRequests tbody tr", "dblclick", function () {
+
+                var a = document.createElement('a');
+                a.target = '_blank';
+
+                let id = $(this).attr('data-id')
+                alert(id)
+
+
+                a.href = '/Message/MessagesByRequest/' + id;
+
+
+                a.click();
+            })
+
+            function ConvertJsonDateString(jsonDate) {
+                var shortDate = null;
+                if (jsonDate) {
+                    var regex = /-?\d+/;
+                    var matches = regex.exec(jsonDate);
+                    var dt = new Date(parseInt(matches[0]));
+                    var month = dt.getMonth() + 1;
+                    var monthString = month > 9 ? month : '0' + month;
+                    var day = dt.getDate();
+                    var dayString = day > 9 ? day : '0' + day;
+                    var year = dt.getFullYear();
+                    shortDate = dayString + '.' + monthString + '.' + year;
+                }
+                return shortDate;
+            };
+        });
+    </script>
+</body>
+</html>
+
+
+
+@*-------------------------------------------------------------------*@
+
+
+<!--<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Navbar -->
+<!-- /.navbar -->
+<!-- Main Sidebar Container -->
+<!--<aside class="main-sidebar sidebar-dark-primary elevation-4">-->
+<!-- Brand Logo -->
+<!--<a href="index3.html" class="brand-link">
+    <img src="~/MyTheme/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+         style="opacity: .8">
+    <span class="brand-text font-weight-light">Admin Panel</span>
+</a>-->
+<!-- Sidebar -->
+<!--<div class="sidebar">-->
+<!-- Sidebar user panel (optional) -->
+<!--<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+        <img src="~/MyTheme/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+        <a href="#" class="d-block">UserInfo.Name_Surname</a>
+    </div>
+</div>-->
+<!-- Sidebar Menu -->
+<!--<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">-->
+<!-- Add icons to the links using the .nav-icon class
+with font-awesome or any other icon font library -->
+<!--if (User.IsInRole("3"))
+{
+    <li class="nav-item has-treeview active">
+        <a href="/AdminDepartment" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+                Departments
+            </p>
+        </a>
+
+    </li>
+}
+if (User.IsInRole("3"))
+{
+    <li class="nav-item has-treeview">
+        <a href="/RequestCategory/Index" class="nav-link">
+            <i class="nav-icon fas fa-copy"></i>
+            <p>
+                Request Categories-->
+@*<i class="fas fa-angle-left right"></i>
+    <span class="badge badge-info right">6</span>*@
+<!--</p>
+         </a>
+
+     </li>
+ }
+if (User.IsInRole("3"))
+ {
+     <li class="nav-item has-treeview">
+         <a href="/User/Index" class="nav-link">
+             <i class="nav-icon fas fa-copy"></i>
+             <p>
+                 Users-->
+@*<i class="fas fa-angle-left right"></i>*@
+@*<span class="badge badge-info right">6</span>*@
+<!--</p>
+</a>-->
+@*<ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="/User/Index" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Aktive Requests</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/User/PassiveUsers" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Passive Requests</p>
+            </a>
+        </li>
+    </ul>*@
+<!--</li>
+}
+
+if (User.IsInRole("3"))
+{
+    <li class="nav-item has-treeview">
+        <a href="/Request/Index" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>
+                Requests
+                <i class="fas fa-angle-left right"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="/Request/Index" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Aktive Requests</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/Request/Passive" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Passive Requests</p>
+                </a>
+            </li>-->
+@*<li class="nav-item">
+        <a href="~/MyTheme/pages/forms/editors.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Editors</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="~/MyTheme/pages/forms/validation.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Validation</p>
+        </a>
+    </li>*@
+<!--</ul>
+    </li>
+}-->
+@*<li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-chart-pie"></i>
+            <p>
+                Graphics
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/charts/chartjs.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>ChartJS</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/charts/flot.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Flot</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/charts/inline.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Inline</p>
+                </a>
+            </li>
+        </ul>
+    </li>*@
+@*<li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tree"></i>
+            <p>
+                UI Elements
+                <i class="fas fa-angle-left right"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/UI/general.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>General</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/UI/icons.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Icons</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/UI/buttons.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Buttons</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/UI/sliders.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Sliders</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/UI/modals.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Modals & Alerts</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/UI/navbar.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Navbar & Tabs</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/UI/timeline.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Timeline</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="~/MyTheme/pages/UI/ribbons.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Ribbons</p>
+                </a>
+            </li>
+        </ul>
+    </li>*@
+
+@*<li class="nav-header">EXAMPLES</li>*@-->
+<!--<!--<li class="nav-item">
+<a href="~/MyTheme/pages/calendar.html" class="nav-link">
+    <i class="nav-icon fas fa-traffic-light"></i>
+    <p>
+        Permission-->
+-->
+<!--@*<span class="badge badge-info right">2</span>*@-->
+<!--<!--</p>
+    </a>
+</li>-->
+-->
+<!--@*<li class="nav-item">
+        <a href="~/MyTheme/pages/gallery.html" class="nav-link">
+            <i class="nav-icon far fa-image"></i>
+            <p>
+                Gallery
+            </p>
+        </a>
+    </li>*@-->
+<!--<!--<li class="nav-item has-treeview">
+<a href="#" class="nav-link">
+    <i class="nav-icon far fa-envelope"></i>
+    <p>
+        Error Pages-->
+-->
+<!--@*<i class="fas fa-angle-left right"></i>*@-->
+<!--<!--</p>
+    </a>
+
+</li>-->
+<!--<li class="nav-item has-treeview">
+<a href="/" class="nav-link">
+    <i class="nav-icon fas fa-book"></i>
+    <p>
+        Go To Homepage-->
+-->
+<!--@*<i class="fas fa-angle-left right"></i>*@-->
+<!--<!--</p>
+    </a>
+
+</li>-->
+<!--<li class="nav-item has-treeview">
+    <a href="/Login/LogOut/" class="nav-link">
+        <i class="nav-icon fas fa-door-closed"></i>
+        <p>
+            Logout-->
+@*<i class="fas fa-angle-left right"></i>*@
+<!--</p>
+            </a>
+
+        </li>
+
+    </ul>
+</nav>-->
+<!-- /.sidebar-menu -->
+<!--</div>-->
+<!-- /.sidebar -->
+<!--</aside>-->
+<!-- Content Wrapper. Contains page content -->
+<!--<div class="content-wrapper">-->
+<!-- Main content -->
+<!--<div class="content">
+    -->
+<!-- /.container-fluid -->
+<!--</div>-->
+<!-- /.content -->
+<!--</div>-->
+<!-- /.content-wrapper -->
+<!--<aside class="control-sidebar control-sidebar-dark">-->
+<!-- Control sidebar content goes here -->
+<!--</aside>
+</div>
+
+<script src="~/MyTheme/plugins/jquery/jquery.min.js"></script>
+
+<script src="~/MyTheme/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+@*<script src="~/MyTheme/dist/js/adminlte.js"></script>-->*@
+
+@*<script src="~/MyTheme/plugins/chart.js/Chart.min.js"></script>*@
+<!--<script src="~/MyTheme/dist/js/demo.js"></script>
+<script src="~/MyTheme/plugins/summernote/summernote-bs4.min.js"></script>-->
+-->
+@*<script src="~/MyTheme/dist/js/pages/dashboard3.js"></script>
+    <script src="~/MyTheme/dist/js/jquery.dataTables.min.js"></script>*@
+<!--<script>
+    $(function () {
+
+        $('#compose-textarea').summernote()
+    })</script>-->
+@*<script>
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#example tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="' + title + '" />');
+            });
+
+            // DataTable
+            var table = $('#example').DataTable({
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            });
+
+            //Veri üzerine çift tıklayınca view'a gitmesi
+            $(document).delegate("#example tbody tr", "dblclick", function () {
+
+                var a = document.createElement('a');
+                a.target = '_blank';
+
+                let id = $(this).attr('data-id')
+
+
+
+                a.href = '/Message/MessagesByRequest/' +id ;
+
+
+                a.click();
+            });
+
+        });
+    </script>*@
+
+
+@*</body>
+    </html>-->*@

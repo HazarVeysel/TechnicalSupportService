@@ -1,0 +1,94 @@
+﻿@model DataAccessLayer.Models.Questions
+@{
+    ViewBag.Title = "Add New Question";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Css{
+
+}
+
+@section Js{
+    <script src="//cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+}
+
+
+
+<div id="main">
+    <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+        <div class="breadcrumbs-dark pb-0 pt-0" id="breadcrumbs-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 m6">
+                        <ol class="breadcrumbs mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Sıkça Soulan Sorular</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Soru Ekle</a>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col s2 m6 l6">
+
+                        <ul class="dropdown-content" id="dropdown1" tabindex="0">
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-profile-page.html">Profilim<span class="new badge red">2</span></a></li>
+                            <li class="divider" tabindex="-1"></li>
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="container">
+                <section class="users-list-wrapper section">
+
+
+                    <div class="users-list-table">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title"><b>Yeni Soru</b></span>
+                                @using (Html.BeginForm("AddNewQuestion", "FAQ", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(x => x.Category_ID, (List<SelectListItem>)ViewBag.vlc, new { @class = "form-control custom-select" })
+
+                                        </div>
+                                        <div class="form-group">
+
+                                            @Html.TextBoxFor(x => x.Question_Title, new { @class = "form-control", @placeholder = "Soru Başlığı" })
+                                        </div>
+                                        <div class="form-group">
+
+                                            @Html.TextBoxFor(x => x.Question_Details, new { @class = "form-control", @placeholder = "Soru Detayı" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextAreaFor(x => x.Answer_Content, new { @class = "ckeditor", @id = "summernote", @placeholder = "Cevap" })
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <div class="float-right">
+                                            <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Oluştur</button>
+                                        </div>
+                                        <a class="btn btn-danger btn-sm" style="font-size:15px" href="/Home/AdminQuestions">
+                                            <i class="fas fa-backward">
+                                            </i>
+                                            Geri
+                                        </a>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

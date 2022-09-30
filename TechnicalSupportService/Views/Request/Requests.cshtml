@@ -1,0 +1,142 @@
+﻿@model List<DataAccessLayer.Models.RequestCategory>
+@{
+    ViewBag.Title = "Talepler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int req_type = Convert.ToInt32(Request.QueryString["Type"]);
+}
+
+@section Css{
+    <link href="~/Content/plugins/data-tables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/css/MyRequestDataTable.css" rel="stylesheet" />
+}
+
+@section Js{
+    <script src="~/Content/plugins/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/js/advance-ui-modals.js"></script>
+    <script src="~/Content/js/pages/requests.js"></script>
+}
+@Html.Hidden("RequestType", req_type)
+<div id="main">
+    <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+        <div class="breadcrumbs-dark pb-0 pt-0" id="breadcrumbs-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 m6">
+                        <ol class="breadcrumbs mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Talepler</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                @(req_type==1? "Aktif Talepler":"Pasif Talepler")
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col s2 m6 l6">
+
+                        <ul class="dropdown-content" id="dropdown1" tabindex="0">
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-profile-page.html">Profilim<span class="new badge red">2</span></a></li>
+                            <li class="divider" tabindex="-1"></li>
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="container">
+                <section class="users-list-wrapper section">
+                    <div class="users-list-filter">
+                        <div class="card-panel">
+                            <div class="row">
+                                <form>
+                                    <header class=" ml-1"><h6>Filtre</h6></header>
+                                    <div class="divider mb-3"></div>
+                                    <div class="col s12 m6 l3">
+                                        <label for="request-list-undertaken">Üstlenme</label>
+                                        <div class="input-field">
+                                            <select class="form-control" id="request-list-undertaken">
+
+                                                <option value="">Seçiniz</option>
+                                                <option value="Yes">Evet</option>
+                                                <option value="No">Hayır</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6 l3">
+                                        <label for="request-list-priority">Öncelik Seviyesi</label>
+                                        <div class="input-field">
+                                            <select class="form-control" id="request-list-priority">
+                                                <option value="">Seçiniz</option>
+                                                <option value="High">Yüksek</option>
+                                                <option value="Medium">Orta</option>
+                                                <option value="Min">Düşük</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6 l3">
+                                        <label for="request-list-category">Talep Kategorisi</label>
+                                        <div class="input-field">
+                                            <select class="form-control" id="request-list-category">
+                                                <option value="">Seçiniz</option>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <option value="@item.RequestCategory_Name">@item.RequestCategory_Name</option>
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6 l3">
+                                        <label for="request-list-status">Aktiflik</label>
+                                        <div class="input-field">
+                                            <select class="form-control" id="request-list-status">
+                                                <option value="">Seçiniz</option>
+                                                <option value="Active">Açık Talep</option>
+                                                <option value="Closed">Kapalı Talep</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @*<div class="col s12 m6 l3 display-flex align-items-center show-btn">
+                                            <button type="submit" class="btn btn-block indigo waves-effect waves-light">Filtrele</button>
+                                        </div>*@
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="users-list-table">
+                        <div class="card">
+                            <div class="card-content">
+                                <table id="data-table-simple" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Talep eden</th>
+                                            <th>Öncelik</th>
+                                            <th>Kategori</th>
+                                            <th>Konu</th>
+                                            <th>Departman</th>
+                                            <th>Üstlenen</th>
+                                            <th>Üstlenilme</th>
+                                            <th>Talep Tarihi</th>
+                                            <th>Üstlenme Tarihi</th>
+                                            <th>Kapanış Tarihi</th>
+                                            <th>Durum</th>
+                                            <th>Puan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="content-overlay"></div>
+        </div>
+    </div>
+</div>
+
+<span id="commentpartial"></span>

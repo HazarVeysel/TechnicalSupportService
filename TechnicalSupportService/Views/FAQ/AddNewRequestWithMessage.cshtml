@@ -1,0 +1,97 @@
+﻿
+@model DataAccessLayer.Models.Message
+@{
+    ViewBag.Title = "AddNewRequestWithMessage";
+    Layout = "~/Views/Shared/_FAQIndexLayout.cshtml";
+
+}
+
+@section Css{
+
+}
+
+@section Js{
+    <script src="//cdn.ckeditor.com/4.19.1/basic/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('editor1', {
+            height: 250,
+            removeButtons: 'PasteFromWord'
+
+        });
+    </script>
+}
+
+<div class="p3 mglonx darken1">
+    <div class="max-width-4 mx-auto">
+        <nav class="flex items-center justify-between mb3">
+            <ol class="breadcrumbs">
+
+                <li title="Home">
+
+                    <a href="/">Ana Sayfa</a>
+
+                </li>
+
+                <li title="All Questions">
+
+                    <a href="/FAQ/AddNewRequestWithMessage">Yeni Talep</a>
+
+                </li>
+
+            </ol>
+        </nav>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Yeni Talep Oluştur</h2>
+            </div>
+            @using (Html.BeginForm("AddNewRequestWithMessage", "FAQ", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="card-body">
+
+                    <div class="form-group">
+                        @Html.Label("Öncelik Seviyesi")
+                        @Html.DropDownListFor(x => x.Request.Priority_ID, (List<SelectListItem>)ViewBag.vlp, new { @class = "form-control custom-select" })
+                        @Html.ValidationMessageFor(x => x.Request.Priority_ID)
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Kategori")
+                        @Html.DropDownListFor(x => x.Request.RequestCategory_ID, (List<SelectListItem>)ViewBag.vlc, new { @class = "form-control custom-select" })
+                        @Html.ValidationMessageFor(x => x.Request.RequestCategory_ID)
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Konu")
+                        @Html.TextBoxFor(x => x.Request.Request_Subject, new { @class = "form-control" })
+
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.Label("Talep içeriği")
+                        <textarea name="Message_Content" class="ckeditor" id="editor1" style="height: 300px"></textarea>
+                        @Html.ValidationMessageFor(x => x.Message_Content)
+                    </div>
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="form-group">
+                                <div class="btn btn-default btn-file">
+                                    <i class="fas fa-paperclip"></i> Attachment
+                                    <input type="file" name="MessageImage">
+                                </div>
+                                <div style="padding-left: 11px;">Max. 32MB</div>
+
+                            </div>
+                        </div>
+                        <div class="float-right center-align-sm col-2" style=" align-self: center; text-align: right;">
+
+                            <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Send</button>
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>

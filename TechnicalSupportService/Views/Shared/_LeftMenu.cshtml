@@ -1,0 +1,50 @@
+﻿@{ 
+    var cn = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower();
+    var an = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString().ToLower();
+    var typ = Request.QueryString["type"];
+    
+
+
+}
+
+
+<aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
+    <div class="brand-sidebar">
+        <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img class="hide-on-med-and-down" src="~/content/images/logo/my_bati_helpdesk.png" alt="materialize logo" /><img class="show-on-medium-and-down hide-on-med-and-up" src="~/content/images/logo/my_bati_helpdesk.png" alt="materialize logo" /></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
+    </div>
+    <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
+        <li class="active bold">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">bookmark_border</i><span class="menu-title" data-i18n="requests">Talepler</span></a>
+            <div class="collapsible-body">
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @(cn == "request" && an=="requests" && typ== "1"?" class="+"active"+" ":"")>
+                        <a  @(cn == "request" && an=="requests" && typ== "1"?" class="+"active"+" ":"") href="/Request/Requests?Type=1"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Aktif Talepler</span></a>
+                    </li>
+                    <li @(cn == "request" && an=="requests" && typ== "2"?" class="+"active"+" ":"")>
+                        <a  @(cn == "request" && an=="requests" && typ== "2"?" class="+"active"+" ":"") href="/Request/Requests?Type=2"><i class="material-icons">radio_button_unchecked</i><span data-i18n="eCommerce">Pasif Talepler</span></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="bold">
+            <a class="waves-effect waves-cyan @(cn == "requestcategory" && an=="ındex"?" active ":"")" href="/RequestCategory/Index"><i class="material-icons">format_list_bulleted</i><span class="menu-title" data-i18n="Mail">Talep Kategorileri</span></a>
+        </li>
+        <li class="bold">
+            <a class="waves-effect waves-cyan @(cn == "user" && an=="ındex"?" active ":"")" href="/User/Index"><i class="material-icons">face</i><span class="menu-title" data-i18n="Mail">Kullanıcılar</span></a>
+        </li>
+        <li class="bold">
+            <a class="waves-effect waves-cyan @(cn == "admindepartment" && an=="ındex"?" active ":"")" href="/AdminDepartment"><i class="material-icons">group</i><span class="menu-title" data-i18n="Mail">Departmanlar</span></a>
+        </li>
+        <li class="bold">
+            <a class="waves-effect waves-cyan @(cn == "faq" && an=="admincategories"?" active ":"")" href="/FAQ/AdminCategories"><i class="material-icons">library_books</i><span class="menu-title" data-i18n="Mail">SSS Kategorileri</span></a>
+        </li>
+        <li class="bold">
+            <a class="waves-effect waves-cyan @(cn == "faq" && an=="adminquestions"?" active ":"")" href="/FAQ/AdminQuestions"><i class="material-icons">question_answer</i><span class="menu-title" data-i18n="Mail">SSS&Cevapları </span></a>
+        </li>
+        <li class="bold">
+            <a class="waves-effect waves-cyan @(cn == "login" && an=="logout"?" active ":"")" href="/Login/Logout"><i class="material-icons">lock</i><span class="menu-title" data-i18n="Mail">Çıkış Yap</span></a>
+        </li>
+       
+    </ul>
+    <div class="navigation-background"></div><a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
+</aside>

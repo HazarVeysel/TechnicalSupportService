@@ -1,0 +1,71 @@
+﻿@model DataAccessLayer.Models.RequestCategory
+
+@{
+    ViewBag.Title = "EditRequestCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="main">
+    <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+        <div class="breadcrumbs-dark pb-0 pt-0" id="breadcrumbs-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 m6">
+                        <ol class="breadcrumbs mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Kategoriler</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                @(Model.RequestCategory_Id==0? "Yeni Talep Kategorisi Ekle" : "Kategori Güncelleme")
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col s2 m6 l6">
+
+                        <ul class="dropdown-content" id="dropdown1" tabindex="0">
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-profile-page.html">Profilim<span class="new badge red">2</span></a></li>
+                            <li class="divider" tabindex="-1"></li>
+                            <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="container">
+                
+                <section class="users-list-wrapper section">
+
+                 
+                    <div class="users-list-table">
+                        <div class="card">
+                            <div class="card-content">
+
+                                @using (Html.BeginForm("EditRequestCategory", "RequestCategory", FormMethod.Post))
+                                {@Html.HiddenFor(x => x.Create_Date)
+                                <div class="form-group">
+                                    @Html.HiddenFor(x => x.RequestCategory_Id, new { @class = "form-control" })
+                                    <br />
+                                    @Html.Label("Category Name:")
+                                    @Html.TextBoxFor(x => x.RequestCategory_Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.RequestCategory_Name)
+                                    <br />
+                                    <br />
+                                    @Html.Label("Category Description:")
+                                    @Html.TextBoxFor(x => x.Category_Description, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.Category_Description)
+                                    <br />
+                                    <br />
+                                    <button class="btn btn-success">Kaydet</button>
+                                </div>
+                            }
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="content-overlay"></div>
+        </div>
+    </div>
+</div>
